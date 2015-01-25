@@ -16,9 +16,9 @@ exports.initWebApp = function(options) {
             if (err) {
                 return console.error(err);
             }
-            var matches = config.url.match(/(http|https):\/\/([^\/]+)(\/.*)?/);
+            var matches = config.webhook.match(/(http|https):\/\/([^\/]+)(\/.*)?/);
             if (matches === null) {
-                return console.error('Problem with URL config: ' + config.url);
+                return console.error('Problem parsing Slack Webhook URL: ' + config.webhook);
             }
             var options = {
                 host: matches[2],
