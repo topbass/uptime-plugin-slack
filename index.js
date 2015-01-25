@@ -25,6 +25,7 @@ exports.initWebApp = function(options) {
                 path: matches[3] || '/',
                 method: 'POST'
             };
+            var templateDir = __dirname + '/views/';
             var filename = templateDir + checkEvent.message + '.ejs';
             var renderOptions = {
                 check: check,
