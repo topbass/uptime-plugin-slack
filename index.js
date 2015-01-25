@@ -8,6 +8,18 @@ var CheckEvent = require('../../models/checkEvent');
 
 exports.initWebApp = function(options) {
     var config = options.config.slack;
+    var templateDir = __dirname + '/views/';
+    var matches = config.webhook.match(/(http|https):\/\/([^\/]+)(\/.*)?/);
+
+    if (matches === null) {
+        return console.error('Problem parsing Slack Webhook URL: ' + config.webhook);
+    }
+
+    var httpOpts = {
+        host: matches[2],
+        path: matches[3] || '/',
+        method: 'POST'
+    };
 
     CheckEvent.on('afterInsert', function(checkEvent) {
         if (!config.event[checkEvent.message]) {
@@ -17,11 +29,6 @@ exports.initWebApp = function(options) {
             if (err) {
                 return console.error(err);
             }
-            var matches = config.webhook.match(/(http|https):\/\/([^\/]+)(\/.*)?/);
-            if (matches === null) {
-                return console.error('Problem parsing Slack Webhook URL: ' + config.webhook);
-            }
-            var templateDir = __dirname + '/views/';
             var filename = templateDir + checkEvent.message + '.ejs';
             var renderOptions = {
                 check: check,
@@ -43,11 +50,7 @@ exports.initWebApp = function(options) {
             }
             var req = (
                 matches[1] == 'https' ? https.request : http.request
-            )({
-                host: matches[2],
-                path: matches[3] || '/',
-                method: 'POST'
-            }, function(res) {
+            )(httpOpts, function(res) {
                 if (res.statusCode == 200) {
                     res.setEncoding('utf8');
                     res.on('data', function (chunk) {
