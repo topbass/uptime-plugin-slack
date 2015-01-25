@@ -55,6 +55,7 @@ exports.initWebApp = function(options) {
                     res.setEncoding('utf8');
                     res.on('data', function (chunk) {
                         console.log('Slack plugin response data: ' + chunk);
+                        console.log('Notified event by slack: Check ' + check.name + ' ' + checkEvent.message);
                     });
                 } else {
                     console.error('Slack plugin response code: ' + res.statusCode);
