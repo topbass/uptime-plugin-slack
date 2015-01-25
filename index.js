@@ -20,11 +20,6 @@ exports.initWebApp = function(options) {
             if (matches === null) {
                 return console.error('Problem parsing Slack Webhook URL: ' + config.webhook);
             }
-            var options = {
-                host: matches[2],
-                path: matches[3] || '/',
-                method: 'POST'
-            };
             var templateDir = __dirname + '/views/';
             var filename = templateDir + checkEvent.message + '.ejs';
             var renderOptions = {
@@ -47,7 +42,11 @@ exports.initWebApp = function(options) {
             }
             var req = (
                 matches[1] == 'https' ? https.request : http.request
-            )(options, function(res) {
+            )({
+                host: matches[2],
+                path: matches[3] || '/',
+                method: 'POST'
+            }, function(res) {
                 if (res.statusCode == 200) {
                     res.setEncoding('utf8');
                     res.on('data', function (chunk) {
