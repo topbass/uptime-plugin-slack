@@ -5,8 +5,6 @@ var https = require('https');
 var moment = require('moment');
 var CheckEvent = require('../../models/checkEvent');
 
-// https://hooks.slack.com/services/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
-
 exports.initWebApp = function(options) {
     var config = options.config.slack;
 
