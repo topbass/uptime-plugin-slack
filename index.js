@@ -88,7 +88,7 @@ exports.initWebApp = function(options) {
             };
             var lines = ejs.render(fs.readFileSync(filename, 'utf8'), renderOptions).split('\n');
             var postdata = {
-                channel: config.channel || '#dev',
+                channel: config.channel || '#general',
                 username: config.username || 'Uptime Alert',
                 text: lines.join('\n'),
                 icon_emoji: config.icon_emoji || ':turtle:'
