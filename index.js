@@ -1,3 +1,52 @@
+/**
+ * Slack plugin
+ *
+ * Notifies all events (up, down, paused, restarted) by slack message
+ *
+ * Installation
+ * ------------
+ * This plugin is uninstalled by default. To install and enable it, git clone
+ * the plugin repo and add its entry
+ * to the `plugins` folder under uptime
+ *
+ *   $ git clone git@github.com:waltzofpearls/uptime-plugin-slack.git slack
+ *
+ * to the `plugins` key of the configuration:
+ *
+ *   // in config/production.yaml
+ *   plugins:
+ *     - ./plugins/slack
+ *
+ * Usage
+ * -----
+ * This plugin sends an message to slack each time a check is started, goes down,
+ * or goes back up. When the check goes down, the message contains the error details:
+ *
+ *   Object: [Down] Check "FooBar" just went down
+ *   On Thursday, September 4th 1986 8:30 PM,
+ *   a test on URL "http://foobar.com" failed with the following error:
+ *
+ *     Error 500
+ *
+ *   Uptime won't send anymore messages about this check until it goes back up.
+ *
+ * Configuration
+ * -------------
+ * Here is an example configuration:
+ *
+ *   // in config/production.yaml
+ *   slack:
+ *     webhook: [slack webhook url]
+ *     channel: '[slack channel name]' # default '#general'
+ *     username: [slack username] # default 'Uptime Alert'
+ *     icon_emoji: [emoji icon for [username]] # default ':turtle:'
+ *     icon_url: [optional, icon_url for [username]] # default empty, icon_url overrides icon_emoji
+ *     event:
+ *       up:        true
+ *       down:      true
+ *       paused:    false
+ *       restarted: false
+ */
 
 var fs = require('fs');
 var ejs = require('ejs');
@@ -70,5 +119,5 @@ exports.initWebApp = function(options) {
         });
     });
 
-    console.log('Enabled Email notifications');
+    console.log('Enabled Slack notifications');
 }
