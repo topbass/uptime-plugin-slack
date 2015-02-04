@@ -1,22 +1,34 @@
 # uptime-plugin-slack
-Uptime plugin for slack incoming messages
+
+This is a custom Uptime plugin for Slack. The main function of this plugin
+is to send Uptime notifications (up/down/pause/start/etc.) to Slack through
+its incoming message API.
+
+- Uptime: https://github.com/fzaninotto/uptime
+- Slack: https://slack.com/
 
 ## Getting Started
+
+To install the plugin, you have to install Uptime first, and then execute the
+following commands.
 
 ```shell
 $ cd /path/to/your/uptime/installation/folder
 $ git clone git@github.com:waltzofpearls/uptime-plugin-slack.git plugins/slack
+# Read the next section for plugin configuration first, then properly enable
+# and configure the plugin, and then restart Uptime app.
 ```
 
 ## Configuration
 
-Add the following line under `plugins` to enable the slack plugin
+In config file `config/production.yaml`, add the following line under `plugins`
+to enable the geckoboard plugin.
 
 ```yaml
   - ./plugins/slack
 ```
 
-Add the following slack plugin config to `config/production.yaml`
+Also add the following geckoboard config to `config/production.yaml`.
 
 ```yaml
 slack:
@@ -31,6 +43,8 @@ slack:
     paused:    false
     restarted: false
 ```
+
+Restart Uptime app after changing the configuration.
 
 ## License
 
