@@ -4,11 +4,32 @@ Uptime plugin for slack incoming messages
 ## Getting Started
 
 ```shell
+$ cd /path/to/your/uptime/installation/folder
+$ git clone git@github.com:waltzofpearls/uptime-plugin-slack.git plugins/slack
 ```
 
 ## Configuration
 
+Add the following line under `plugins` to enable the slack plugin
+
 ```yaml
+  - ./plugins/slack
+```
+
+Add the following slack plugin config to `config/production.yaml`
+
+```yaml
+slack:
+  webhook: [slack webhook url]
+  channel: '[slack channel name]' # default '#general'
+  username: [slack username] # default 'Uptime Alert'
+  icon_emoji: [emoji icon for [username]] # default ':turtle:'
+  icon_url: [optional, icon_url for [username]] # default empty, icon_url overrides icon_emoji
+  event:
+    up:        true
+    down:      true
+    paused:    false
+    restarted: false
 ```
 
 ## License
