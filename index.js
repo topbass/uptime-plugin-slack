@@ -103,21 +103,28 @@ exports.initWebApp = function(options) {
                 if (res.statusCode == 200) {
                     res.setEncoding('utf8');
                     res.on('data', function (chunk) {
-                        console.log('Slack plugin response data: ' + chunk);
-                        console.log('Notified event by slack: Check ' + check.name + ' ' + checkEvent.message);
+                        console.log(moment.format() +
+                            ' - Slack plugin response data: ' + chunk);
+                        console.log(moment.format() +
+                            ' - Notified event by slack: Check ' + check.name +
+                            ' ' + checkEvent.message);
                     });
                 } else {
-                    console.error('Slack plugin response code: ' + res.statusCode);
-                    console.error('Slack plugin response headers: ' + JSON.stringify(res.headers));
+                    console.error(moment.format() +
+                        ' - Slack plugin response code: ' + res.statusCode);
+                    console.error(moment.format() +
+                        ' - Slack plugin response headers: ' +
+                        JSON.stringify(res.headers));
                 }
             });
             req.on('error', function(_err) {
-                console.error('Slack plugin response error: ' + _err.message);
+                console.error(moment.format() +
+                    ' - Slack plugin response error: ' + _err.message);
             });
             req.write(JSON.stringify(postdata));
             req.end();
         });
     });
 
-    console.log('Enabled Slack notifications');
+    console.log(moment.format() + ' - Enabled Slack notifications');
 }
