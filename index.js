@@ -90,8 +90,9 @@ exports.initWebApp = function(options) {
             var postdata = {
                 channel: config.channel || '#general',
                 username: config.username || 'Uptime Alert',
+                icon_emoji: config.icon_emoji || ':turtle:',
                 text: lines.join('\n'),
-                icon_emoji: config.icon_emoji || ':turtle:'
+                link_names: '1'
             }
             if (config.icon_url) {
                 delete postdata.icon_emoji;
